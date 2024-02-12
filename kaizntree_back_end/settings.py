@@ -16,7 +16,6 @@ import mongoengine
 import django_heroku
 import os
 
-django_heroku.settings(locals())
 load_dotenv()
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
@@ -46,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    'whitenoise.runserver_nostatic',
     'kaizntree',
     'corsheaders'
 ]
@@ -58,7 +58,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "kaizntree_back_end.urls"
@@ -129,17 +130,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-STATIC_URL = '/static/'
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# STATIC_URL = '/static/'
 # define where your static files will be collected
 # It will be `absolute/path/to/demo3/static`
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # keep it empty for the moment
-STATICFILES_DIRS = (
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static')
+# )
+
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DISABLE_COLLECTSTATIC = True
+
+# django_heroku.settings(locals())
