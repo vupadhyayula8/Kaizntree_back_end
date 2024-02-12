@@ -13,8 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import mongoengine
+import django_heroku
 import os
 
+django_heroku.settings(locals())
 load_dotenv()
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
