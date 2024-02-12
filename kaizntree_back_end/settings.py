@@ -148,6 +148,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
 CORS_ORIGIN_ALLOW_ALL = True
 
+ALLOWED_HOSTS = ['*']
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
