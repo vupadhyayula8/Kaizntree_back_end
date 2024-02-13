@@ -18,8 +18,11 @@ from django.contrib import admin
 from django.urls import path, re_path
 from kaizntree import views
 
+
 urlpatterns = [
     re_path(r"^admin", admin.site.urls),
     re_path(r"^login", views.login),
     re_path(r"^register", views.register),
+    re_path(r"^fetch_items", views.fetch_items),
+    re_path(r"^reset", views.reset)
 ]
